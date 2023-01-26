@@ -1,4 +1,9 @@
+// 1-les definition
 const choices= ["Rock", "Paper","Scissors"];
+const buttons = document.querySelectorAll('.buttons button');
+
+
+//2- les fonctions necessaires
 
 function randInt(max){
     return Math.floor(Math.random()*max);
@@ -25,25 +30,27 @@ function playRound(playerSelection,computerSelection){
     }else{
         win=1;
     }
-    console.log("computer :"+computer+"\n you : "+player)
+    const text="computer :"+computer+"</br>"+"\n you : "+player;
     if (win===0){
-        return "\nyou lost ! ";
+        return text+"</br> you lost ! ";
     }else if(win===1){
-        return "you win ! ";
+        return text+"</br>you win ! ";
     }else if(win===2){
-        return "nobody win!";
+        return text+"</br>nobody win!";
     }
 
 }
 
+// 3-les ecouteurs
+var computerSelection=getComputerChoice();
+const div=document.querySelector(".resultat");
 
-for(let i = 0; i < 5; i++){
-    
-    do{
-        var playerSelection = capitalize(prompt("Entrez : "));
-        if(choices.indexOf(playerSelection) === -1){console.log("erreur");}
-    }while(choices.indexOf(playerSelection) === -1)
-    
-    var computerSelection=getComputerChoice();
-    console.log(playRound(playerSelection,computerSelection));
-}
+buttons.forEach((button) =>{
+    const playerSelection_function =function(){
+        var playerSelection=button.id
+        var computerSelection=getComputerChoice();
+        div.innerHTML=playRound(playerSelection,computerSelection);
+    }
+    button.addEventListener('click',playerSelection_function);
+});
+   
